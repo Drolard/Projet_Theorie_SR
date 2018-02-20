@@ -5,6 +5,7 @@ import (
   "net"
   "bufio"
   "os"
+  "strconv"
 )
 
 func main(){
@@ -12,65 +13,35 @@ func main(){
 connexion,err := net.Dial("tcp","172.21.66.106:10000")
 if err == nil {
 
-  fmt.Println("Connexion effectué")
-
-  reader := bufio.NewReader(connexion)
+  //reader := bufio.NewReader(connexion)
   writer := bufio.NewWriter(connexion)
-
   myReader := bufio.NewReader(os.Stdin)
 
-  message,err:=reader.ReadString('\n')
+  for {
 
-  if err!=nil {
-    fmt.Println("Erreur de réception de message")
-  }
-  fmt.Print(message)
-
-  pseudoValide := true
-
-  for pseudoValide {
-
-    pseudo, _  := myReader.ReadString('\n')
-    _, err = writer.WriteString(pseudo)
-    writer.Flush()
-
-    if err !=nil {
-        fmt.Println("Erreur d'écriture")
-    }
-
-    message, err := reader.ReadString('\n')
-
-    if err!=nil {
-      fmt.Println("Erreur de réception de message 2")
-    }
-
-    fmt.Print(message)
-    if message == "ok!\n" {
-      pseudoValide = false
-    }
-  }
-
-  deconnexion := true
-  for deconnexion {
-
+    fmt.Println("Veuillez entrer un nombre (ou 'q' pour quitter)")
     message, _  := myReader.ReadString('\n')
-    _, err = writer.WriteString(message)
-    writer.Flush()
-
-    if err !=nil {
-        fmt.Println("Erreur d'écriture")
+    _ , err := strconv.atoi(strings.TrimRight(message, "\n"))
+    if err == nil {
+      _, err = writer.WriteString(message)
+      writer.Flush()
+      if err !=nil {
+          fmt.Println("Erreur d'écriture")
+      }
+    }
+    else{
+      if strings.TrimRight(message, "\n") == "q" {
+        fmt.Println("Deconnexion")
+        break
+      }
+      else{
+        fmt.Println("Erreur de saisie\n")
+      }
     }
 
-    message, err := reader.ReadString('\n')
 
-    if err!=nil {
-      fmt.Println("Erreur de réception de message")
-    }
 
-    fmt.Print(message)
-    if message != "ok!\n" {
-      deconnexion = false
-    }
+
 
   }
 
