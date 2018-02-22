@@ -1,15 +1,5 @@
 package main
 
-import (
-  "fmt" //nom court pour bibliothèque standard
-  "bufio"
-  "strings"
-  "net"
-  "io"
-  "strconv"
-  "sync"
-)
-
 var workersNumber int = 5
 
 func main() {
@@ -22,4 +12,7 @@ func main() {
   }
   go Repartir(fromCollector, availableWorkers)
   go Collecter(fromCollector)
+  for {
+    
+  }
 }

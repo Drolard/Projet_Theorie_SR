@@ -1,5 +1,14 @@
 package main
 
+import (
+  "fmt" //nom court pour bibliothèque standard
+  "bufio"
+  "strings"
+  "net"
+  "strconv"
+  "sync"
+)
+
 var wg sync.WaitGroup
 
 func Collecter(fromCollector chan int){
@@ -19,8 +28,8 @@ func Collecter(fromCollector chan int){
 
     wg.Wait()
     fmt.Println("ShutDown du serveur")
-
 }
+
 
 func EcouterClient(connexion net.Conn, fromCollector chan int){
   defer wg.Done()
@@ -29,11 +38,11 @@ func EcouterClient(connexion net.Conn, fromCollector chan int){
   for {
     message,err := reader.ReadString('\n')
     if err == nil {
-        msg = atoi(strings.TrimRight(message, "\n"))
-        fromCollector <- msg
+        msg, err = strconv.Atoi(strings.TrimRight(message, "\n"))
+        if err == nil {
+          fromCollector <- msg
+        }
       }
   }
-
-}
 
 }
