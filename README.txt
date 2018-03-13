@@ -5,7 +5,7 @@ Ce fichier décrit en premier lieu comment installer ce projet puis comment l'ut
 
 Tout d'abord décompresser le fichier dans le dossier voulu
 
-Ensuite il faut mettre à jour la variable d'environnement GOPATH, pour ce faire entrer dans un terminal :
+Ensuite il faut mettre à jour la variable d'environnement GOPATH, pour ce faire entrer dans un terminal la commande :
 
 	export GOPATH=[AdresseFichierGo]
 
@@ -23,12 +23,12 @@ Ce fichier doit avoir une architecture similaire à celle-ci :
 	│		├── repartiteur.go
 	│		├── serveur.go
 	│		└── travailleur.go
-	├── bin
+	├── pkg
 	└── README.txt
 
 EXEMPLE : export GOPATH=/mnt/Théorie_SR/MonProjetGo
 
-Pour voir si $GOPATH à bien été configuré faîtes
+Pour voir si $GOPATH à bien été configuré faites
 
 	echo $GOPATH
 
@@ -149,3 +149,9 @@ Pour utiliser ce projet Serveur/Client il faut tout d'abord lancer un serveur pu
 
 Le serveur peut recevoir plusieurs connexions et dispose d'un nombre de travailleur limité.
 Si un client entre un entier x (entier = seul type de message valide avec "q" qui permet au client de se déconnecter) alors le serveur va utiliser un de ses travailleur et faire une boucle de x tours.
+
+
+>>>>>>>>>>>>>>>>>>>>     PROBLEMES CONNUS     <<<<<<<<<<<<<<<<<<<<
+
+Un probleme connu est le fait que si le client demande un nombre trop élevé de tour de boucle, le travailleur va se mettre à travailler,
+hors au bout d'un moment il ne va plus avoir la main, la boucle va donc s'arrêter et bloquer tout le serveur. 
