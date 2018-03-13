@@ -9,21 +9,13 @@ import (
 * @param workChan, canal contenant la tache à effectuer
 * @param availableWorkers, canal contenant les canaux des travailleurs disponibles
 */
-func Travailler(workChan chan int, availaibleWorkers chan chan int) {
+func Travailler(workChan chan Task, availaibleWorkers chan chan Task) {
   for {
-<<<<<<< HEAD
-    var taskNumber int = <-workChan
-    fmt.Println(taskNumber)
-    for i := 0; i < taskNumber; i++ {
-      fmt.Println(i)
-      // time.Sleep(1)
-=======
-    var taskNumber int = <-workChan //bloquant si aucune tâche n'est communiqué à ce travailleur
-    for i := 0; i < taskNumber; i++ {
-      // fmt.Println(strconv.Itoa(i))
->>>>>>> ac5115a7dca52e8c75f18038e6eb115835f67d16
+    task := <-workChan
+    for i := 0; i < task.loopNumber; i++ {
+      // fmt.Println(i)
     }
-    fmt.Println("Travailleur : J'ai travaillé "+strconv.Itoa(taskNumber)+" fois")
-    availaibleWorkers <- workChan // ce travailleur se rend disponible après avoir effectuer la tâche
+    fmt.Println("Travailleur : J'ai travaillé "+strconv.Itoa(task.loopNumber)+" fois")
+    availaibleWorkers <- workChan // Ce travailleur se rend disponible après avoir effectuer la tâche
   }
 }
