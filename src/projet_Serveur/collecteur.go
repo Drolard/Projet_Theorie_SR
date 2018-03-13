@@ -27,7 +27,9 @@ func Collecter(fromCollector chan Task) {
     wg.Add(1)
     go EcouterClient(connexionBase, fromCollector) // Lance une goRoutine dès qu'un client s'est connecté
   }
-  fmt.Println("ShutDown du serveur")
+
+//Si le programme sort de la boucle infinie
+    fmt.Println("ShutDown du serveur")
 }
 
 

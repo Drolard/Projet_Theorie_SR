@@ -36,7 +36,7 @@ func main() {
       }
     }
     fmt.Println("Fin de connexion")
-  } else {
+  }else{
     fmt.Println("Erreur de connexion")
   }
 }
