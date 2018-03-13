@@ -48,4 +48,4 @@ func EcouterClient(connexion net.Conn, fromCollector chan Task){
         }
       }
     }
-  }
+}
